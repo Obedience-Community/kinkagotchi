@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const Color darkGray = Color(0xFF222222);
+
 // The main function is the entry point of the application.
 void main() {
   runApp(const MyApp());
@@ -14,17 +16,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // The application title
-      title: 'Hello World App',
+      title: 'Kinkagotchi',
       
       // Define the primary visual theme of the app
       theme: ThemeData(
-        primarySwatch: Colors.red[900],
+        primarySwatch: Colors.red,
         // Using a clean, modern font for the app
         fontFamily: 'Inter', 
+        scaffoldBackgroundColor: darkGray,
       ),
       
       // Define the home screen of the application
-      home: const MyHomePage(title: 'Flutter Hello World'),
+      home: const MyHomePage(title: 'Kinkagotchi'),
     );
   }
 }
@@ -41,7 +44,8 @@ class MyHomePage extends StatelessWidget {
       // Top bar of the app
       appBar: AppBar(
         title: Text(title),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.red.shade900,
+        foregroundColor: Colors.grey.shade300,
         elevation: 4,
       ),
       
@@ -53,13 +57,13 @@ class MyHomePage extends StatelessWidget {
             // Vertically center the content
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Display the "Hello World!" text in a large, clean style
+              // Display the "Hello Kinkagotchi!" text in a large, clean style
               Text(
-                'Hello World!',
+                'Hello Kinkagotchi!',
                 style: TextStyle(
                   fontSize: 48, // Large font size
                   fontWeight: FontWeight.bold,
-                  color: Colors.indigo,
+                  color: Colors.red,
                 ),
               ),
               
@@ -67,10 +71,10 @@ class MyHomePage extends StatelessWidget {
               
               // A simple, secondary message
               Text(
-                'Welcome to your first Flutter application!',
+                'Made by the Obedience App community.',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.blueGrey,
+                  color: Colors.grey,
                 ),
                 textAlign: TextAlign.center,
               ),
