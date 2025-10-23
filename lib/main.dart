@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/lcd_display.dart';
 
 const Color darkGray = Color(0xFF222222);
 
@@ -48,34 +49,12 @@ class MyHomePage extends StatelessWidget {
         foregroundColor: Colors.grey.shade300,
         elevation: 4,
       ),
-
-      // Body content is centered in the screen
-      body: const Center(
-        child: Padding(
-          padding: EdgeInsets.all(32.0),
-          child: Column(
-            // Vertically center the content
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // Display the "Hello Kinkagotchi!" text in a large, clean style
-              Text(
-                'Hello Kinkagotchi!',
-                style: TextStyle(
-                  fontSize: 48, // Large font size
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),
-              ),
-
-              SizedBox(height: 16),
-
-              // A simple, secondary message
-              Text(
-                'Made by the Obedience App community.',
-                style: TextStyle(fontSize: 18, color: Colors.grey),
-                textAlign: TextAlign.center,
-              ),
-            ],
+      body: const SafeArea(
+        child: Center(
+          // Center widget added here
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: LcdDisplay(),
           ),
         ),
       ),
