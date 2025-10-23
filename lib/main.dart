@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'widgets/lcd_display.dart';
 import 'widgets/egg_shape.dart';
+import 'widgets/button.dart';
 
 const Color darkGray = Color(0xFF222222);
 const String eggAssetPath = 'assets/egg.svg';
@@ -57,44 +58,104 @@ class MyHomePage extends StatelessWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final screenWidth = constraints.maxWidth;
-                final screenHeight =
-                    constraints.maxHeight; // 👈 Get the available height
+                final screenHeight = constraints.maxHeight;
 
-                // 1. Calculate Egg Dimensions
-                // Egg width is 90% of screen width
                 final eggWidth = screenWidth * 0.90;
-
-                // Calculate the maximum allowed height for the egg (95% of screen height)
-                final maxEggHeight = screenHeight * 0.95; // 👈 NEW CONSTRAINT
-
-                // LCD Dimensions
+                final maxEggHeight = screenHeight * 0.95;
                 final lcdWidth = eggWidth * 0.85;
+
+                // The button radius is defined here to size the button row
+                const double buttonRadius = 28;
 
                 return Stack(
                   alignment: Alignment.center,
                   children: [
-                    // 2. The EggShape (Base layer, 90% width, MAX 95% height)
+                    // 1. The EggShape (Base layer, 90% width, MAX 80% height)
                     ConstrainedBox(
-                      // 👈 Use ConstrainedBox to enforce max height
                       constraints: BoxConstraints(
-                        maxHeight: maxEggHeight, // Set the maximum height
-                        // We also set the minimum and maximum width to be the calculated eggWidth
+                        maxHeight: maxEggHeight,
                         minWidth: eggWidth,
                         maxWidth: eggWidth,
                       ),
-                      child: Padding(
+                      child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 16.0),
                         child: EggShape(),
                       ),
                     ),
 
-                    // 3. The LCD Display (Overlay layer)
-                    SizedBox(
-                      width: lcdWidth,
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 100),
-                        child: LcdDisplay(),
-                      ),
+                    // 2. The Overlay Content (LCD + Buttons)
+                    // We use a Column to stack the LCD and Buttons vertically,
+                    // and the Stack's alignment: Alignment.center centers this Column
+                    // over the EggShape.
+                    Column(
+                      mainAxisSize: MainAxisSize
+                          .min, // Essential: only take up needed space
+                      children: [
+                        // A. LCD Display
+                        SizedBox(
+                          width: lcdWidth,
+                          // Adjust vertical position UPWARD with negative padding (bottom)
+                          // or use a precise Alignment(x, y) if needed.
+                          child: const Padding(
+                            padding: EdgeInsets.only(
+                              top: 0,
+                            ), // Adjust this if needed
+                            child: LcdDisplay(),
+                          ),
+                        ),
+
+                        // Space between LCD and buttons
+                        const SizedBox(height: 32),
+
+                        // B. The Button Row (Constrained width)
+                        // 👈 NEW: Constrain the button Row's width to 80% of the LCD width
+                        SizedBox(
+                          width: lcdWidth * 0.70,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              // Button A
+                              Button(
+                                onPressed: () => print('Button A Pressed'),
+                                radius: buttonRadius,
+                                child: const Text(
+                                  'A',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+
+                              // Button B
+                              Button(
+                                onPressed: () => print('Button B Pressed'),
+                                radius: buttonRadius,
+                                child: const Text(
+                                  'B',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+
+                              // Button C
+                              Button(
+                                onPressed: () => print('Button C Pressed'),
+                                radius: buttonRadius,
+                                child: const Text(
+                                  'C',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 );
