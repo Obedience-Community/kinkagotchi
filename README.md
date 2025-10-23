@@ -11,6 +11,8 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages).
 -->
 
+[![CI](https://github.com/Obedience-Community/kinkagotchi/actions/workflows/ci.yml/badge.svg)](https://github.com/Obedience-Community/kinkagotchi/actions/workflows/ci.yml)
+
 Nurture your kinky pet with tasks, rewards, and punishments.
 
 ## Features
