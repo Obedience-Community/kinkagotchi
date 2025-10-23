@@ -16,10 +16,19 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            ${{ env.FLUTTER_HOME }}/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           flutter-version: '3.35.7'
+          cache: true
       - name: Install dependencies
         run: flutter pub get
       - name: Check formatting
@@ -47,10 +56,23 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+          cache: 'gradle'
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ~/.android/build-cache
+            ${{ env.FLUTTER_HOME }}/.pub-cache
+          key: ${{ runner.os }}-android-${{ hashFiles('**/pubspec.lock', '**/build.gradle.kts', '**/settings.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-android-
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           flutter-version: '3.35.7'
+          cache: true
       - name: Install dependencies
         run: flutter pub get
       - name: Decode Keystore
@@ -78,10 +100,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            ${{ env.FLUTTER_HOME }}/.pub-cache
+          key: ${{ runner.os }}-web-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-web-
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           flutter-version: '3.35.7'
+          cache: true
       - name: Install dependencies
         run: flutter pub get
       - name: Build Web
@@ -100,10 +131,19 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/AppData/Local/Pub/Cache
+            ${{ env.FLUTTER_HOME }}/.pub-cache
+          key: ${{ runner.os }}-windows-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-windows-
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           flutter-version: '3.35.7'
+          cache: true
       - name: Install dependencies
         run: flutter pub get
       - name: Build Windows
@@ -122,10 +162,20 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            ~/Library/Caches/CocoaPods
+            ${{ env.FLUTTER_HOME }}/.pub-cache
+          key: ${{ runner.os }}-ios-${{ hashFiles('**/pubspec.lock', '**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-ios-
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           flutter-version: '3.35.7'
+          cache: true
       - name: Install dependencies
         run: flutter pub get
       - name: Build iOS
