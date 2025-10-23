@@ -65,10 +65,13 @@ jobs:
       - name: Build APK
         run: flutter build apk --release
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: android-release-${{ github.run_number }}
           path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 90
+          compression-level: 6
+          overwrite: true
 
   build-web:
     needs: test
@@ -84,10 +87,13 @@ jobs:
       - name: Build Web
         run: flutter build web --release
       - name: Upload Web Build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: web-release-${{ github.run_number }}
           path: build/web
+          retention-days: 90
+          compression-level: 6
+          overwrite: true
 
   build-windows:
     needs: test
@@ -103,10 +109,13 @@ jobs:
       - name: Build Windows
         run: flutter build windows --release
       - name: Upload Windows Build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows-release-${{ github.run_number }}
           path: build/windows/x64/runner/Release/
+          retention-days: 90
+          compression-level: 6
+          overwrite: true
 
   build-ios:
     needs: test
@@ -128,7 +137,10 @@ jobs:
           cp -r Runner.app Payload
           zip -r app.ipa Payload
       - name: Upload iOS Build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ios-release-${{ github.run_number }}
           path: build/ios/iphoneos/app.ipa
+          retention-days: 90
+          compression-level: 6
+          overwrite: true
