@@ -1,0 +1,40 @@
+# Set default behavior to automatically normalize line endings
+* text=auto eol=lf
+
+# Force bash scripts to always use LF line endings so that if a repo is accessed
+# in Unix via a file share from Windows, the scripts will work.
+*.sh text eol=lf
+*.bash text eol=lf
+.git/hooks/* text eol=lf
+
+# Dart files
+*.dart text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# Flutter/Dart/Pub related
+pubspec.* text eol=lf
+.packages text eol=lf
+.metadata text eol=lf
+analysis_options.yaml text eol=lf
+
+# Android related
+*.gradle text eol=lf
+*.properties text eol=lf
+gradlew text eol=lf
+*.kts text eol=lf
+
+# iOS related
+*.plist text eol=lf
+*.swift text eol=lf
+*.h text eol=lf
+*.m text eol=lf
+*.mm text eol=lf
+
+# Documentation
+*.md text eol=lf
+LICENSE text eol=lf
+
+# Windows files that should keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
