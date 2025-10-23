@@ -1,16 +1,57 @@
-# kinkagotchi_new
+<!--
+This README describes the package. If you publish this package to pub.dev,
+this README's contents appear on the landing page for your package.
 
-A new Flutter project.
+For information about how to write a good package README, see the guide for
+[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
 
-## Getting Started
+For general information about developing packages, see the Dart guide for
+[creating packages](https://dart.dev/guides/libraries/create-packages)
+and the Flutter guide for
+[developing packages and plugins](https://flutter.dev/to/develop-packages).
+-->
 
-This project is a starting point for a Flutter application.
+Nurture your kinky pet with tasks, rewards, and punishments.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+TODO: List what your package can do. Maybe include images, gifs, or videos.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Getting started
+
+### Installing local devices
+
+```bash
+flutter devices          # confirm Chrome or web-server is available
+flutter run -d chrome    # runs [lib/main.dart](lib/main.dart) in Chrome
+# or build static files and serve:
+flutter build web
+python -m http.server --directory build/web 8000
+```
+
+If Chrome doesn't show in `flutter devices`, enable web support with:
+```bash
+flutter config --enable-web
+flutter doctor
+```
+
+
+## Usage
+
+### Running in browser
+
+#### Debug mode
+```bash
+flutter run -d chrome
+```
+
+### Running in Windows
+
+#### Debug mode
+```
+flutter run -d windows
+```
+
+## Additional information
+
+An open source project brought to you by the Obedience App community.
