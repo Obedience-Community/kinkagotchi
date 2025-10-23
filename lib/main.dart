@@ -17,15 +17,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // The application title
       title: 'Kinkagotchi',
-      
+
       // Define the primary visual theme of the app
       theme: ThemeData(
         primarySwatch: Colors.red,
         // Using a clean, modern font for the app
-        fontFamily: 'Inter', 
+        fontFamily: 'Inter',
         scaffoldBackgroundColor: darkGray,
       ),
-      
+
       // Define the home screen of the application
       home: const MyHomePage(title: 'Kinkagotchi'),
     );
@@ -48,7 +48,7 @@ class MyHomePage extends StatelessWidget {
         foregroundColor: Colors.grey.shade300,
         elevation: 4,
       ),
-      
+
       // Body content is centered in the screen
       body: const Center(
         child: Padding(
@@ -66,16 +66,13 @@ class MyHomePage extends StatelessWidget {
                   color: Colors.red,
                 ),
               ),
-              
+
               SizedBox(height: 16),
-              
+
               // A simple, secondary message
               Text(
                 'Made by the Obedience App community.',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey,
-                ),
+                style: TextStyle(fontSize: 18, color: Colors.grey),
                 textAlign: TextAlign.center,
               ),
             ],
