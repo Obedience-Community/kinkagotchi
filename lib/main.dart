@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'widgets/lcd_display.dart';
 import 'widgets/egg_shape.dart';
 import 'widgets/button.dart';
 
 const Color darkGray = Color(0xFF222222);
 const String eggAssetPath = 'assets/egg.svg';
+
+final logger = Logger();
 
 // The main function is the entry point of the application.
 void main() {
@@ -116,7 +119,7 @@ class MyHomePage extends StatelessWidget {
                             children: [
                               // Button A
                               Button(
-                                onPressed: () => print('Button A Pressed'),
+                                onPressed: () => logger.i('Button A Pressed'),
                                 radius: buttonRadius,
                                 child: const Text(
                                   'A',
@@ -129,7 +132,7 @@ class MyHomePage extends StatelessWidget {
 
                               // Button B
                               Button(
-                                onPressed: () => print('Button B Pressed'),
+                                onPressed: () => logger.i('Button B Pressed'),
                                 radius: buttonRadius,
                                 child: const Text(
                                   'B',
@@ -142,7 +145,7 @@ class MyHomePage extends StatelessWidget {
 
                               // Button C
                               Button(
-                                onPressed: () => print('Button C Pressed'),
+                                onPressed: () => logger.i('Button C Pressed'),
                                 radius: buttonRadius,
                                 child: const Text(
                                   'C',
