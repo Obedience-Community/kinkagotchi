@@ -31,23 +31,25 @@ class Button extends StatelessWidget {
           // Gradient to give a slightly convex/3D look
           gradient: RadialGradient(
             colors: [
-              baseColor.withOpacity(0.9), // Slightly lighter center
+              baseColor.withValues(alpha: 0.9), // Slightly lighter center
               baseColor,
-              baseColor.withOpacity(0.8), // Slightly darker edge
+              baseColor.withValues(alpha: 0.8), // Slightly darker edge
             ],
             stops: [0.0, 0.5, 1.0],
           ),
           // Inner shadow for the "inset" effect
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.6), // Dark shadow for depth
+              color: Colors.black.withValues(
+                alpha: 0.6,
+              ), // Dark shadow for depth
               offset: Offset(2, 2),
               blurRadius: 4,
               spreadRadius: 1,
             ),
             BoxShadow(
-              color: Colors.white.withOpacity(
-                0.3,
+              color: Colors.white.withValues(
+                alpha: 0.3,
               ), // Light highlight for contrast
               offset: Offset(-2, -2),
               blurRadius: 4,
