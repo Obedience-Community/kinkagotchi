@@ -8,13 +8,13 @@ class Button extends StatelessWidget {
   final double borderWidth; // Thickness of the "inset" border
 
   const Button({
-    Key? key,
+    super.key,
     required this.onPressed,
     this.child,
     this.radius = 60.0, // Default radius
     this.baseColor = Colors.amber, // Default gold/amber color
     this.borderWidth = 8.0, // Default border thickness
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
