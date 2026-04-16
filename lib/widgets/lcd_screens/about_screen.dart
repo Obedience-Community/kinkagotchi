@@ -22,8 +22,11 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   void initState() {
     super.initState();
-    // Register button A callback to go back to menu
-    widget.buttonService.setButtonCallbacks(onA: _goBackToMenu);
+    // Defer both callbacks and labels to after the frame to avoid widget tree lock
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.buttonService.setButtonCallbacks(onA: _goBackToMenu);
+      widget.buttonService.setButtonLabels(labelA: 'BACK');
+    });
   }
 
   @override
@@ -78,38 +81,6 @@ class _AboutScreenState extends State<AboutScreen> {
                 ],
               ),
             ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        // Navigation hint at the bottom
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: const [
-                  Text('BACK', style: TextStyle(fontSize: 10)),
-                  Icon(Icons.arrow_downward, size: 12),
-                ],
-              ),
-              Column(
-                children: const [
-                  Text('', style: TextStyle(fontSize: 10)),
-                  Icon(Icons.arrow_upward, size: 12, color: Colors.transparent),
-                ],
-              ),
-              Column(
-                children: const [
-                  Text('', style: TextStyle(fontSize: 10)),
-                  Icon(
-                    Icons.arrow_downward,
-                    size: 12,
-                    color: Colors.transparent,
-                  ),
-                ],
-              ),
-            ],
           ),
         ),
       ],

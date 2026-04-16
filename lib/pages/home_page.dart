@@ -73,8 +73,9 @@ class _HomePageState extends State<HomePage> {
           elevation: 4,
         ),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Center(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minWidth: 1200, minHeight: 800),
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   final screenWidth = constraints.maxWidth;
@@ -82,7 +83,9 @@ class _HomePageState extends State<HomePage> {
 
                   final eggWidth = screenWidth * 0.90;
                   final maxEggHeight = screenHeight * 0.95;
-                  final lcdWidth = eggWidth * 0.85;
+                  final lcdWidth =
+                      eggWidth *
+                      0.70; // Reduced from 0.85 to keep LCD within egg
 
                   // The button radius is defined here to size the button row
                   const double buttonRadius = 28;
@@ -107,84 +110,95 @@ class _HomePageState extends State<HomePage> {
                       // We use a Column to stack the LCD and Buttons vertically,
                       // and the Stack's alignment: Alignment.center centers this Column
                       // over the EggShape.
-                      Column(
-                        mainAxisSize: MainAxisSize
-                            .min, // Essential: only take up needed space
-                        children: [
-                          // A. LCD Display
-                          SizedBox(
-                            width: lcdWidth,
-                            // Adjust vertical position UPWARD with negative padding (bottom)
-                            // or use a precise Alignment(x, y) if needed.
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                top: 0,
-                              ), // Adjust this if needed
-                              child: LcdDisplay(screenService: _screenService),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth:
+                              eggWidth *
+                              0.95, // Ensure LCD never exceeds egg width
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize
+                              .min, // Essential: only take up needed space
+                          children: [
+                            // A. LCD Display
+                            SizedBox(
+                              width: lcdWidth,
+                              // Adjust vertical position UPWARD with negative padding (bottom)
+                              // or use a precise Alignment(x, y) if needed.
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 0,
+                                ), // Adjust this if needed
+                                child: LcdDisplay(
+                                  screenService: _screenService,
+                                  buttonService: _buttonService,
+                                ),
+                              ),
                             ),
-                          ),
 
-                          // Space between LCD and buttons
-                          const SizedBox(height: 32),
+                            // Space between LCD and buttons
+                            const SizedBox(height: 32),
 
-                          // B. The Button Row (Constrained width)
-                          // 👈 NEW: Constrain the button Row's width to 80% of the LCD width
-                          SizedBox(
-                            width: lcdWidth * 0.70,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                // Button A
-                                Button(
-                                  onPressed: () {
-                                    _logger.i('Button A Pressed');
-                                    _buttonService.triggerButtonA();
-                                  },
-                                  radius: buttonRadius,
-                                  child: const Text(
-                                    'A',
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
+                            // B. The Button Row (Constrained width)
+                            // Constrain the button Row's width relative to LCD width
+                            SizedBox(
+                              width: lcdWidth * 0.80,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  // Button A
+                                  Button(
+                                    onPressed: () {
+                                      _logger.i('Button A Pressed');
+                                      _buttonService.triggerButtonA();
+                                    },
+                                    radius: buttonRadius,
+                                    child: const Text(
+                                      'A',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
 
-                                // Button B
-                                Button(
-                                  onPressed: () {
-                                    _logger.i('Button B Pressed');
-                                    _buttonService.triggerButtonB();
-                                  },
-                                  radius: buttonRadius,
-                                  child: const Text(
-                                    'B',
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
+                                  // Button B
+                                  Button(
+                                    onPressed: () {
+                                      _logger.i('Button B Pressed');
+                                      _buttonService.triggerButtonB();
+                                    },
+                                    radius: buttonRadius,
+                                    child: const Text(
+                                      'B',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
 
-                                // Button C
-                                Button(
-                                  onPressed: () {
-                                    _logger.i('Button C Pressed');
-                                    _buttonService.triggerButtonC();
-                                  },
-                                  radius: buttonRadius,
-                                  child: const Text(
-                                    'C',
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
+                                  // Button C
+                                  Button(
+                                    onPressed: () {
+                                      _logger.i('Button C Pressed');
+                                      _buttonService.triggerButtonC();
+                                    },
+                                    radius: buttonRadius,
+                                    child: const Text(
+                                      'C',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   );

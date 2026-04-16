@@ -34,6 +34,12 @@ class MenuScreenState extends State<MenuScreen> {
     // Register this menu state with the button service after the widget is fully built
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.buttonService?.setCurrentMenuState(this);
+      // Set button labels for menu
+      widget.buttonService?.setButtonLabels(
+        labelA: 'SELECT',
+        labelB: 'UP',
+        labelC: 'DOWN',
+      );
     });
   }
 
@@ -102,34 +108,6 @@ class MenuScreenState extends State<MenuScreen> {
                 ),
               );
             },
-          ),
-        ),
-        const SizedBox(height: 16),
-        // Navigation hints at the bottom
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: const [
-                  Text('SEL', style: TextStyle(fontSize: 10)),
-                  Icon(Icons.arrow_downward, size: 12),
-                ],
-              ),
-              Column(
-                children: const [
-                  Text('UP', style: TextStyle(fontSize: 10)),
-                  Icon(Icons.arrow_upward, size: 12),
-                ],
-              ),
-              Column(
-                children: const [
-                  Text('DOWN', style: TextStyle(fontSize: 10)),
-                  Icon(Icons.arrow_downward, size: 12),
-                ],
-              ),
-            ],
           ),
         ),
       ],

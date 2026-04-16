@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import '../services/lcd_screen_service.dart';
+import '../services/button_service.dart';
+import 'button_labels_strip.dart';
 
 class LcdDisplay extends StatelessWidget {
   const LcdDisplay({
     super.key,
     required this.screenService,
+    required this.buttonService,
     this.backgroundColor = const Color(0xFF9EAB91), // Classic LCD green-gray
     this.borderColor = const Color(0xFF4A4A4A), // Dark gray border
     this.textColor = const Color(0xFF2B2B2B), // Dark text color
@@ -12,6 +15,7 @@ class LcdDisplay extends StatelessWidget {
   });
 
   final LcdScreenService screenService;
+  final ButtonService buttonService;
   final Color backgroundColor;
   final Color borderColor;
   final Color textColor;
@@ -51,11 +55,29 @@ class LcdDisplay extends StatelessWidget {
             // Add scanlines effect
             child: CustomPaint(
               painter: ScanlinePainter(),
-              child: ListenableBuilder(
-                listenable: screenService,
-                builder: (context, child) {
-                  return screenService.currentScreen;
-                },
+              child: Column(
+                children: [
+                  // Screen content (takes up most of the space)
+                  Expanded(
+                    child: ListenableBuilder(
+                      listenable: screenService,
+                      builder: (context, child) {
+                        return screenService.currentScreen;
+                      },
+                    ),
+                  ),
+                  // Button labels strip at the bottom
+                  ListenableBuilder(
+                    listenable: buttonService,
+                    builder: (context, child) {
+                      return ButtonLabelsStrip(
+                        labelA: buttonService.buttonLabelA,
+                        labelB: buttonService.buttonLabelB,
+                        labelC: buttonService.buttonLabelC,
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ),

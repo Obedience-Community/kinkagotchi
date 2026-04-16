@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import '../widgets/lcd_screens/menu_screen.dart';
 
 /// Service that handles button actions
-class ButtonService {
+class ButtonService extends ChangeNotifier {
   final Logger logger;
   MenuScreenState? _currentMenuState;
 
@@ -10,6 +11,11 @@ class ButtonService {
   Function()? _onButtonAPressed;
   Function()? _onButtonBPressed;
   Function()? _onButtonCPressed;
+
+  // Button labels for the current screen
+  String _buttonLabelA = '';
+  String _buttonLabelB = '';
+  String _buttonLabelC = '';
 
   ButtonService({required this.logger});
 
@@ -31,6 +37,7 @@ class ButtonService {
     _onButtonCPressed = onC;
     // Clear menu state when setting custom callbacks
     _currentMenuState = null;
+    notifyListeners();
   }
 
   /// Clear button callbacks
@@ -38,7 +45,25 @@ class ButtonService {
     _onButtonAPressed = null;
     _onButtonBPressed = null;
     _onButtonCPressed = null;
+    // Don't notify listeners - clearing happens during dispose when tree is locked
   }
+
+  /// Set the labels for the buttons on the current screen
+  void setButtonLabels({
+    String labelA = '',
+    String labelB = '',
+    String labelC = '',
+  }) {
+    _buttonLabelA = labelA;
+    _buttonLabelB = labelB;
+    _buttonLabelC = labelC;
+    notifyListeners();
+  }
+
+  /// Get the current button labels
+  String get buttonLabelA => _buttonLabelA;
+  String get buttonLabelB => _buttonLabelB;
+  String get buttonLabelC => _buttonLabelC;
 
   /// Trigger Button A action (SELECT)
   void triggerButtonA() {
