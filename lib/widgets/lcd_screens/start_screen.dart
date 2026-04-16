@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../services/button_service.dart';
 import '../../services/lcd_screen_service.dart';
 import 'main_menu.dart';
+import 'about_screen.dart';
 
 /// Start screen shown on app startup - the main welcome screen
 class StartScreen extends StatefulWidget {
@@ -50,7 +51,12 @@ class _StartScreenState extends State<StartScreen> {
     // Handle menu selection
     if (selectedIndex == 0) {
       // ABOUT selected
-      // TODO: Navigate to about screen
+      widget.screenService.replaceScreen(
+        AboutScreen(
+          screenService: widget.screenService,
+          buttonService: widget.buttonService,
+        ),
+      );
     } else if (selectedIndex == 1) {
       // START selected
       // TODO: Navigate to game screen

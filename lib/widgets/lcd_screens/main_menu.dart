@@ -18,8 +18,6 @@ class MainMenu extends MenuScreen {
   }) : super(
          options: const ['ABOUT', 'START'],
          menuKey: GlobalKey<MenuScreenState>(),
-       ) {
-    // Register this menu with the button service
-    buttonService.setCurrentMenuState(menuKey?.currentState);
-  }
+         buttonService: buttonService,
+       );
 }

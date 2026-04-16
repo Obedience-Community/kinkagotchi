@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../services/button_service.dart';
+
 /// Base class for menu screens
 /// Provides common menu functionality like selection and navigation
 class MenuScreen extends StatefulWidget {
@@ -7,6 +9,7 @@ class MenuScreen extends StatefulWidget {
   final int initialSelectedIndex;
   final Function(int) onSelect;
   final GlobalKey<MenuScreenState>? menuKey;
+  final ButtonService? buttonService;
 
   const MenuScreen({
     super.key,
@@ -14,6 +17,7 @@ class MenuScreen extends StatefulWidget {
     this.initialSelectedIndex = 0,
     required this.onSelect,
     this.menuKey,
+    this.buttonService,
   });
 
   @override
@@ -27,6 +31,10 @@ class MenuScreenState extends State<MenuScreen> {
   void initState() {
     super.initState();
     _selectedIndex = widget.initialSelectedIndex;
+    // Register this menu state with the button service after the widget is fully built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.buttonService?.setCurrentMenuState(this);
+    });
   }
 
   /// Get the currently selected index
@@ -60,6 +68,9 @@ class MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Ensure registration (fallback in case post-frame callback hasn't run yet)
+    widget.buttonService?.setCurrentMenuState(this);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
