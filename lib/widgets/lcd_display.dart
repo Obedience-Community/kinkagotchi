@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import '../services/lcd_screen_service.dart';
 
 class LcdDisplay extends StatelessWidget {
   const LcdDisplay({
     super.key,
+    required this.screenService,
     this.backgroundColor = const Color(0xFF9EAB91), // Classic LCD green-gray
     this.borderColor = const Color(0xFF4A4A4A), // Dark gray border
     this.textColor = const Color(0xFF2B2B2B), // Dark text color
     this.borderWidth = 8.0, // Thick border for retro look
   });
 
+  final LcdScreenService screenService;
   final Color backgroundColor;
   final Color borderColor;
   final Color textColor;
@@ -48,16 +51,11 @@ class LcdDisplay extends StatelessWidget {
             // Add scanlines effect
             child: CustomPaint(
               painter: ScanlinePainter(),
-              child: const Center(
-                child: Text(
-                  'Made by the Obedience Discord server community.',
-                  style: TextStyle(
-                    color: Color(0xFF2B2B2B),
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
-                  ),
-                ),
+              child: ListenableBuilder(
+                listenable: screenService,
+                builder: (context, child) {
+                  return screenService.currentScreen;
+                },
               ),
             ),
           ),

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import '../services/button_service.dart';
 import '../services/keyboard_service.dart';
+import '../services/lcd_screen_service.dart';
 import '../widgets/lcd_display.dart';
 import '../widgets/egg_shape.dart';
 import '../widgets/button.dart';
+import '../widgets/lcd_screens/start_screen.dart';
 
 /// HomePage is a StatefulWidget that displays the main game interface
 /// and handles keyboard input for button actions
@@ -22,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   late Logger _logger;
   late ButtonService _buttonService;
   late KeyboardService _keyboardService;
+  late LcdScreenService _screenService;
 
   @override
   void initState() {
@@ -30,6 +33,14 @@ class _HomePageState extends State<HomePage> {
     _focusNode = FocusNode();
     _buttonService = ButtonService(logger: _logger);
     _keyboardService = KeyboardService(buttonService: _buttonService);
+
+    // Initialize with a placeholder widget first
+    _screenService = LcdScreenService(initialScreen: const SizedBox());
+
+    // Then replace with StartScreen that has access to the services
+    _screenService.replaceScreen(
+      StartScreen(screenService: _screenService, buttonService: _buttonService),
+    );
 
     // Request focus so the widget can receive keyboard input
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -40,6 +51,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     _focusNode.dispose();
+    _screenService.dispose();
     super.dispose();
   }
 
@@ -104,11 +116,11 @@ class _HomePageState extends State<HomePage> {
                             width: lcdWidth,
                             // Adjust vertical position UPWARD with negative padding (bottom)
                             // or use a precise Alignment(x, y) if needed.
-                            child: const Padding(
-                              padding: EdgeInsets.only(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
                                 top: 0,
                               ), // Adjust this if needed
-                              child: LcdDisplay(),
+                              child: LcdDisplay(screenService: _screenService),
                             ),
                           ),
 
